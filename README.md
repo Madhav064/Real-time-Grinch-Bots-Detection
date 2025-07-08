@@ -112,8 +112,8 @@ streamlit run grinch_bot_streamlit.py
 
 ### **Data & Model**
 - `bot_human_behavior.csv`: Example dataset for training/testing.
-- `bot_detection_model.py`: (Optional) Script for training the ML model.
-
+- `bot_detection_model.py`: Script for training the ML model.
+- The DataSet is taken from Kaggle ([Link to dataset](https://www.kaggle.com/datasets/subradeepdas02/irctc-bot-detection-dataset))
 ---
 
 ## Customization & Development
@@ -129,5 +129,5 @@ MIT License (or your preferred license)
 ---
 
 ## Credits
-- Developed by [Your Name]
+- Developed by Madhav Raj 
 - Special thanks to open-source contributors and the Streamlit, FastAPI, and Chrome Extension communities.
