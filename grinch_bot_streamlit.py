@@ -7,6 +7,11 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 from datetime import datetime
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env if present
+load_dotenv()
 
 # Set page configuration first
 st.set_page_config(page_title="Grinch Bot Detector", layout="wide")
@@ -44,10 +49,13 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Load trained model and encoder
+# Load trained model and encoder using environment variables
+MODEL_PATH = os.getenv("MODEL_PATH", "rf_bot_model.pkl")
+ENCODER_PATH = os.getenv("ENCODER_PATH", "scroll_behavior_encoder.pkl")
+BACKEND_API_URL = os.getenv("BACKEND_API_URL", "http://localhost:8000")
 try:
-    rf_model = joblib.load("rf_bot_model.pkl")
-    le = joblib.load("scroll_behavior_encoder.pkl")
+    rf_model = joblib.load(MODEL_PATH)
+    le = joblib.load(ENCODER_PATH)
     model_loaded = True
 except Exception as e:
     st.error(f"Error loading model: {e}")
@@ -76,9 +84,11 @@ with tab1:
     auto_refresh = st.checkbox("Auto-refresh (every 60 seconds)", value=True)
     
     # Function to fetch latest session data
+    # Use environment variable for backend API URL
+    BACKEND_API_URL = os.getenv("BACKEND_API_URL", "http://localhost:8000")
     def fetch_latest_session():
         try:
-            response = requests.get("http://localhost:8000/latest_session")
+            response = requests.get(f"{BACKEND_API_URL}/latest_session")
             if response.status_code == 200:
                 return response.json()
             return None

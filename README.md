@@ -154,7 +154,46 @@ streamlit run app.py
 
 ---
 
-## 🔗 API Endpoints
+## Deployment
+
+### 1. Configure Environment Variables
+
+Create a `.env` file in the project root (see example below):
+
+```
+API_HOST=0.0.0.0
+API_PORT=8000
+DASHBOARD_HOST=0.0.0.0
+DASHBOARD_PORT=8501
+MODEL_PATH=bot_detection_model.pkl
+ENCODER_PATH=label_encoder.pkl
+BACKEND_API_URL=http://localhost:8000
+```
+
+### 2. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Run FastAPI Backend
+
+```bash
+uvicorn app:app --host %API_HOST% --port %API_PORT%
+```
+
+### 4. Run Streamlit Dashboard
+
+```bash
+streamlit run grinch_bot_streamlit.py --server.port %DASHBOARD_PORT% --server.address %DASHBOARD_HOST%
+```
+
+- The dashboard will connect to the backend using the `BACKEND_API_URL` specified in `.env`.
+- You can deploy these on separate servers/services for scalability and security.
+
+---
+
+## Usage
 
 | Method | Endpoint       | Description                            |
 | ------ | -------------- | -------------------------------------- |

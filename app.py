@@ -6,6 +6,11 @@ import numpy as np
 from typing import Dict, Optional, List
 import json
 from fastapi.encoders import jsonable_encoder
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env if present
+load_dotenv()
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -23,10 +28,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load the trained model and encoder
+# Load model and encoder using environment variables
+MODEL_PATH = os.getenv("MODEL_PATH", "rf_bot_model.pkl")
+ENCODER_PATH = os.getenv("ENCODER_PATH", "scroll_behavior_encoder.pkl")
 try:
-    model = joblib.load("rf_bot_model.pkl")
-    encoder = joblib.load("scroll_behavior_encoder.pkl")
+    model = joblib.load(MODEL_PATH)
+    encoder = joblib.load(ENCODER_PATH)
 except Exception as e:
     print(f"Error loading model: {e}")
     model = None
