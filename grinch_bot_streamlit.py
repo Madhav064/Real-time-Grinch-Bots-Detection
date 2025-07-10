@@ -81,7 +81,7 @@ with tab1:
     session_container = st.container()
     
     # Add auto-refresh option
-    auto_refresh = st.checkbox("Auto-refresh (every 60 seconds)", value=True)
+    auto_refresh = st.checkbox("Auto-refresh (every 60 seconds)", value=False)
     
     # Function to fetch latest session data
     # Use environment variable for backend API URL
