@@ -188,13 +188,16 @@ async def predict_session(data: SessionData):
 
         # Generate a unique session ID based on timestamp
         import time
+        from datetime import datetime
+        import pytz
+        tz = pytz.timezone('Asia/Kolkata')
+        now = datetime.now(tz)
         session_id = f"session_{int(time.time())}"
-        
         # Store the session data and results for Streamlit
         global latest_session
         latest_session = {
             "session_id": session_id,
-            "timestamp": time.time(),
+            "timestamp": now.isoformat(),
             "features": {
                 "mouse_movement_units": data.mouse_movement_units,
                 "typing_speed_cpm": data.typing_speed_cpm,
