@@ -1,3 +1,4 @@
 bot_human_behavior.csv
 .venv
 .env
+__pycache__
