@@ -133,6 +133,7 @@ async def predict_bot(data: BehaviorData):
 
 @app.post("/predict_session", response_model=SessionPredictionResponse)
 async def predict_session(data: SessionData):
+    print("[predict_session] Received data from frontend:", data.model_dump())
     """
     Predict whether a session is from a bot or human
     """

@@ -66,15 +66,14 @@ tab1, tab2, tab3 = st.tabs(["📊 Live Session Monitoring", "📂 Batch Predicti
 with tab1:
     st.header("📊 Live Session Monitoring")
     st.markdown("""
-    This section shows real-time data from the Chrome extension monitoring. 
-    Start a session in the extension and complete a purchase flow to see results here.
+    This section shows real-time data from website session monitoring. Submit session data from your website to the API to see live results here.
     """)
     
     # Create a container for the session data
     session_container = st.container()
     
     # Add auto-refresh option
-    auto_refresh = st.checkbox("Auto-refresh (every 5 seconds)", value=True)
+    auto_refresh = st.checkbox("Auto-refresh (every 60 seconds)", value=True)
     
     # Function to fetch latest session data
     def fetch_latest_session():
@@ -90,7 +89,7 @@ with tab1:
     # Display latest session data
     def display_session_data(session_data):
         if not session_data or "error" in session_data:
-            st.info("No active session data available. Start a session using the Chrome extension.")
+            st.info("No active session data available. Submit a session from your website to see results.")
             return
         
         # Extract data
@@ -186,7 +185,7 @@ with tab1:
     if auto_refresh:
         refresh_placeholder = st.empty()
         refresh_placeholder.info("Auto-refreshing...")
-        time.sleep(5)  # Wait 5 seconds
+        time.sleep(60)  # Wait 60 seconds
         refresh_placeholder.empty()  # Remove the message
         st.rerun()  # Rerun the app
 
@@ -407,16 +406,12 @@ with tab3:
     except Exception as e:
         st.error(f"Error in Single Session Analysis tab: {e}")
 
-# Add information about the Chrome extension
+# Add information about Website Session Detection
 st.sidebar.title("Grinch Bot Detector")
-st.sidebar.image("grinch-bot-extension/images/icon128.png", width=100)
 st.sidebar.markdown("""
 ## How to Use
-1. Install the Chrome extension
-2. Browse an e-commerce website
-3. Click "Start Monitoring Session" in the extension
-4. Complete a purchase flow (add to cart → checkout → purchase)
-5. View results here in real-time
+1. Integrate your website to POST session data to the FastAPI backend (`/predict_session`).
+2. View live session results here in the dashboard.
 
 ## Features Monitored
 - Mouse movement patterns
