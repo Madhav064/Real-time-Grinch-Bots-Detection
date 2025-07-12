@@ -1,133 +1,169 @@
-# Grinch Bot Detection on E-commerce Website
+# 🛡️ Real-Time Bot Detection System for E-Commerce
 
-## Overview
+## 📖 Project Overview
 
-**Grinch Bot Detection** is a full-stack project designed to detect and analyze bot-like behavior on e-commerce websites. It consists of a Chrome extension for real-time user behavior monitoring, a Python backend for ML-based bot detection, and a Streamlit dashboard for visualization and analysis.
+During high-traffic holiday seasons, e-commerce websites face attacks from **Grinch Bots** – automated scripts that purchase high-demand items faster than any human customer. These bots resell items at inflated prices or manipulate demand by hoarding products, leading to unfair user experiences and revenue loss.
 
----
-
-## Features
-
-- **Chrome Extension**: Monitors user sessions (mouse, typing, clicks, scroll, etc.) from "add to cart" to "purchase".
-- **Backend (FastAPI)**: Receives session data, runs a trained ML model, and returns bot/human predictions.
-- **Streamlit Dashboard**: Visualizes live session results, supports batch CSV analysis, and allows manual session analysis.
-- **Feature Importance**: Visualizes which behaviors are most indicative of bots.
+Our solution is a **real-time bot detection system** that identifies and blocks bots during checkout, ensuring purchases are completed only by genuine users.
 
 ---
 
-## Project Structure
+## 🔍 Problem Statement
 
-```
-bot detection on e-commerce website/
-├── app.py                        # FastAPI backend server
-├── bot_detection_model.py        # (Optional) Model training script
-├── grinch_bot_streamlit.py       # Streamlit dashboard
-├── requirements.txt              # Python dependencies
-├── rf_bot_model.pkl              # Trained Random Forest model
-├── scroll_behavior_encoder.pkl   # Label encoder for scroll behavior
-├── feature_importance.png        # Feature importance plot
-├── bot_human_behavior.csv        # Example dataset
-├── grinch-bot-extension/         # Chrome extension source
-│   ├── background.js
-│   ├── content.js
-│   ├── manifest.json
-│   ├── popup.html
-│   ├── popup.js
-│   └── images/
-│       ├── icon16.png
-│       ├── icon48.png
-│       └── icon128.png
-└── ...
-```
+- Grinch Bots dominate checkout processes during flash sales.
+- Human customers lose access to products.
+- Businesses face inventory issues and reputational damage.
 
 ---
 
-## Setup Instructions
+## 🔑 Solution Summary
 
-### 1. **Clone the Repository**
+We built a modular system with:
+
+- 🖥️ **E-commerce Website** (user interface)
+- ⚙️ **Backend API** (handles session data)
+- 🧠 **ML Model Backend** (classifies human vs. bot)
+- 📊 **Admin Dashboard** (live monitoring)
+
+The system uses machine learning models trained on a Kaggle dataset to analyze session data and predict bot activity. If a bot is detected, the system blocks payment and logs the attempt.
+
+---
+
+## 🔗 Live Demo Links
+
+| Component             | Link                                                                                            |
+| --------------------- | ----------------------------------------------------------------------------------------------- |
+| 🛒 E-commerce Website | [walmart-dp.vercel.app](https://walmart-dp.vercel.app/)                                         |
+| 🔗 Backend API        | [walmart-app.onrender.com](https://walmart-app.onrender.com)                                    |
+| 🤖 ML Model Backend   | [bot-detector-model-backend.onrender.com](https://bot-detector-model-backend.onrender.com)      |
+| 📊 Admin Dashboard    | [bot-detector-model-dashboard.onrender.com](https://bot-detector-model-dashboard.onrender.com/) |
+
+---
+
+## 🏗️ System Architecture
+
+### 📐 Architecture Diagram
+
+
+
+### 🔄 Data Flow Diagram
+
+
+
+1. **Session Tracking** – Tracks user behavior: clicks, navigation, response times.
+2. **Data Transfer** – Frontend sends session data to backend API.
+3. **Classification** – ML backend evaluates data and predicts user type.
+4. **Action** – Human: Payment processed; Bot: Payment blocked and flagged.
+5. **Live Monitoring** – Admin dashboard shows detection results in real time.
+
+---
+
+## 📊 Dataset
+
+- **Source:** [IRCTC Bot Detection Dataset (Kaggle)](https://www.kaggle.com/datasets/subradeepdas02/irctc-bot-detection-dataset)
+- **Features Used:**
+  - Session duration
+  - Number of clicks
+  - Time between requests
+  - Navigation depth
+  - Response time
+
+---
+
+## 🛠️ Tech Stack
+
+| Component        | Technology           |
+| ---------------- | -------------------- |
+| Frontend         | Next.js, React.js    |
+| Backend API      | Node.js, Express.js  |
+| ML Model Backend | Python, Flask        |
+| Dashboard        | Streamlit            |
+| Bot Simulation   | Python               |
+| ML Libraries     | Scikit-learn, Pandas |
+
+---
+
+## 🌟 Key Features
+
+- ⏱️ Real-time detection and prevention.
+- 🛠️ Custom Grinch Bot simulator for testing.
+- 📊 Dashboard with live detection results.
+- 🔄 Modular architecture for easy scaling.
+
+---
+
+## 👥 Team Contributions
+
+| Name              | Role                        |
+| ----------------- | --------------------------- |
+| Madhav Raj Sharma | Detection System & ML Model |
+| Dilpreet Singh    | Frontend Development        |
+| Ayush Karn        | Bot Simulation              |
+
+---
+
+## 🚀 Future Improvements
+
+- Dockerize all components for scalable deployment.
+- Integrate CAPTCHA fallback for flagged users.
+- Collect live traffic data to enhance model accuracy.
+- Add integration with payment gateways for direct blocking.
+
+---
+
+## ⚙️ Installation (For Developers)
+
+1. **Clone Repository**
+
 ```bash
-git clone <your-repo-url>
-cd "bot detection on e-commerce website"
+git clone https://github.com/<your-username>/bot-detection-system.git
+cd bot-detection-system
 ```
 
-### 2. **Install Python Dependencies**
+2. **Frontend**
+
 ```bash
+cd frontend
+npm install
+npm run dev
+```
+
+3. **Backend API**
+
+```bash
+cd backend
+npm install
+npm start
+```
+
+4. **ML Model Backend**
+
+```bash
+cd ml-backend
 pip install -r requirements.txt
-```
-
-### 3. **Start the Backend Server**
-```bash
 python app.py
 ```
-- The FastAPI server will run at `http://localhost:8000`.
 
-### 4. **Start the Streamlit Dashboard**
+5. **Dashboard**
+
 ```bash
-streamlit run grinch_bot_streamlit.py
+cd dashboard
+pip install -r requirements.txt
+streamlit run app.py
 ```
-- The dashboard will be available at `http://localhost:8501`.
-
-### 5. **Load the Chrome Extension**
-1. Open Chrome and go to `chrome://extensions`.
-2. Enable **Developer mode**.
-3. Click **Load unpacked** and select the `grinch-bot-extension` folder.
-4. The "Grinch Bot Detector" icon should appear in your browser toolbar.
 
 ---
 
-## Usage
+## 🔗 API Endpoints
 
-### **Live Session Monitoring**
-1. Go to any e-commerce website.
-2. Click the extension icon and select **Start Monitoring Session**.
-3. Perform actions (add to cart, checkout, purchase).
-4. The extension collects behavioral data and sends it to the backend.
-5. View real-time results in the Streamlit dashboard under **Live Session Monitoring**.
-
-### **Batch Prediction**
-- Upload a CSV file with session data in the dashboard's **Batch Prediction** tab to analyze multiple sessions at once.
-
-### **Single Session Analysis**
-- Manually enter session metrics in the dashboard's **Single Session Analysis** tab to get an instant prediction.
+| Method | Endpoint       | Description                            |
+| ------ | -------------- | -------------------------------------- |
+| POST   | `/api/detect`  | Sends session data for classification. |
+| GET    | `/api/results` | Fetches real-time detection results.   |
 
 ---
 
-## File Explanations
+## 🏅 Recognition
 
-### **Chrome Extension**
-- `manifest.json`: Extension configuration and permissions.
-- `background.js`: Handles background tasks, badge updates, and session state.
-- `content.js`: Injected into web pages; tracks user behavior and sends data to backend.
-- `popup.html` / `popup.js`: User interface for starting/stopping monitoring and viewing results.
-- `images/`: Extension icons.
+Built for Walmart Sparkathon to solve a real-world problem of unfair e-commerce practices during high-demand events.
 
-### **Backend**
-- `app.py`: FastAPI server; receives data, runs ML model, returns predictions.
-- `rf_bot_model.pkl`: Trained Random Forest model for bot detection.
-- `scroll_behavior_encoder.pkl`: Label encoder for scroll behavior feature.
-
-### **Streamlit Dashboard**
-- `grinch_bot_streamlit.py`: Interactive dashboard for live, batch, and manual analysis.
-- `feature_importance.png`: Visualizes which features are most important for detection.
-
-### **Data & Model**
-- `bot_human_behavior.csv`: Example dataset for training/testing.
-- `bot_detection_model.py`: Script for training the ML model.
-- The DataSet is taken from Kaggle ([Link to dataset](https://www.kaggle.com/datasets/subradeepdas02/irctc-bot-detection-dataset))
----
-
-## Customization & Development
-- **Model Training**: Use `bot_detection_model.py` to retrain or improve the ML model.
-- **Extension Logic**: Modify `content.js` to track additional behaviors or improve feature extraction.
-- **Dashboard**: Customize `grinch_bot_streamlit.py` for new visualizations or analytics.
-
----
-
-## License
-MIT License (or your preferred license)
-
----
-
-## Credits
-- Developed by Madhav Raj 
-- Special thanks to open-source contributors and the Streamlit, FastAPI, and Chrome Extension communities.
