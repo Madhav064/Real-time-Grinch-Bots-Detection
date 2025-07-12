@@ -115,7 +115,15 @@ with tab1:
         with col1:
             st.subheader("Session Information")
             st.markdown(f"**Session ID:** {session_id}")
-            st.markdown(f"**Timestamp:** {datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')}")
+            from dateutil import parser
+            if isinstance(timestamp, str):
+                try:
+                    dt = parser.isoparse(timestamp)
+                    st.markdown(f"**Timestamp:** {dt.strftime('%Y-%m-%d %H:%M:%S')}")
+                except Exception:
+                    st.markdown(f"**Timestamp:** {timestamp}")
+            else:
+                st.markdown(f"**Timestamp:** {datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')}")
             
             # Create metrics visualization
             st.subheader("Session Metrics")
