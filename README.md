@@ -98,7 +98,7 @@ The system uses machine learning models trained on a Kaggle dataset to analyze s
 | ----------------- | --------------------------- |
 | Madhav Raj Sharma | Detection System & ML Model |
 | Dilpreet Singh    | E-commerce Website Developer|
-| Ayush Karn        | [Grinch Bot Developer](https://github.com/AyushKarn69/grinch-bot)        |
+| Ayush Karn        | Grinch Bot Developer [(Link to Repo)](https://github.com/AyushKarn69/grinch-bot)        |
 
 ---
 
